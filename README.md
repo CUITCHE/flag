@@ -48,6 +48,24 @@ And then we get the output:
 
 *The key-value may be `-key=value` or `-key value`. Especially for bool value, `-key` represents true.*
 
+**Default Key**
+
+-help print flag your set help information. For demo's help info is:
+
+```
+Usage of flag-cpp:
+  -h string
+    	Server host string (default "localhost")
+  -p int
+    	Network port(TCP) (default 1234)
+  -race float
+    	Test the float value (default 0.0)
+  -log
+    	show the log
+```
+
+
+
 # LICENSE
 
 The MIT LICENSE.

@@ -155,6 +155,9 @@ struct Float: public proto_value {
         return nullptr;
     }
     virtual std::string string() const override  {
+        if (actual == 0) {
+            return "0.0";
+        }
         ss.clear();
         ss.str("");
         ss << actual;
@@ -282,9 +285,9 @@ struct FlagSet {
 
     void defaultUsage() {
         if (name.length() == 0) {
-            println("Usage:\n");
+            println("Usage:");
         } else {
-            println(string("Usage of ").append(name).append(":\n"));
+            println(string("Usage of ").append(name).append(":"));
         }
         printDefault();
     }
