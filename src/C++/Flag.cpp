@@ -46,21 +46,23 @@ struct proto_value {
 };
 
 struct Flag {
+    static int identifier;
+    const int id;
+    unique_ptr<proto_value> value;
     const string name;
     const string usage;
-    unique_ptr<proto_value> value;
     const string defValue;
 
     Flag(const Flag &other)
-    :name(other.name), usage(other.usage),defValue(other.defValue), value(make_unique<proto_value>(*other.value))
+    :id(other.id), value(make_unique<proto_value>(*other.value)), name(other.name), usage(other.usage),defValue(other.defValue)
     {}
 
     Flag(Flag &&other)
-    :name(std::move(other.name)), usage(std::move(other.usage)),defValue(std::move(other.defValue)), value(std::move((other.value)))
+    :id(other.id), value(std::move((other.value))), name(std::move(other.name)), usage(std::move(other.usage)),defValue(std::move(other.defValue))
     {}
 
     Flag(const string &name, const string &usage, const string &defValue, proto_value *value)
-    :name(name), usage(usage),defValue(defValue)
+    :id(++identifier), name(name), usage(usage),defValue(defValue)
     {
         this->value.reset(value);
     }
@@ -103,6 +105,8 @@ struct Flag {
         return tie(name, usage);
     }
 };
+
+int Flag::identifier = 0;
 
 struct Bool: public proto_value {
     bool actual;
@@ -155,6 +159,9 @@ struct Float: public proto_value {
         return nullptr;
     }
     virtual std::string string() const override  {
+        if (actual == 0) {
+            return "0.0";
+        }
         ss.clear();
         ss.str("");
         ss << actual;
@@ -282,9 +289,9 @@ struct FlagSet {
 
     void defaultUsage() {
         if (name.length() == 0) {
-            println("Usage:\n");
+            println("Usage:");
         } else {
-            println(string("Usage of ").append(name).append(":\n"));
+            println(string("Usage of ").append(name).append(":"));
         }
         printDefault();
     }
@@ -317,7 +324,7 @@ struct FlagSet {
     void visitAll(std::function<void(const Flag &flag)> callback) {
         vector<Flag *> flags(formal->size());
         transform(formal->begin(), formal->end(), flags.begin(), [](auto &pair) { return pair.second.get(); });
-        sort(flags.begin(), flags.end());
+        sort(flags.begin(), flags.end(), [](const Flag *_1, const Flag *_2) { return _1->id < _2->id; });
         for (auto flag: flags) {
             callback(*flag);
         }

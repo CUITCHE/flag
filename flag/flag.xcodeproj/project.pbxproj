@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		FB5BC7111F3C2ED400909083 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5BC7101F3C2ED400909083 /* main.swift */; };
-		FB5BC7161F3C2EE000909083 /* flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5BC7151F3C2EE000909083 /* flag.swift */; };
 		FB5BC71E1F3C2F0E00909083 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB5BC71D1F3C2F0E00909083 /* main.cpp */; };
-		FB5BC7241F3C2F2100909083 /* Flag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB5BC7221F3C2F2100909083 /* Flag.cpp */; };
+		FB982E151F4ECAB500354316 /* Flag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB982E111F4ECAAA00354316 /* Flag.cpp */; };
+		FB982E161F4ECABA00354316 /* flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB982E141F4ECAAA00354316 /* flag.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,11 +37,11 @@
 /* Begin PBXFileReference section */
 		FB5BC70E1F3C2ED400909083 /* flag-swift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "flag-swift"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB5BC7101F3C2ED400909083 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		FB5BC7151F3C2EE000909083 /* flag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = flag.swift; sourceTree = "<group>"; };
 		FB5BC71B1F3C2F0E00909083 /* flag-cpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "flag-cpp"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB5BC71D1F3C2F0E00909083 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		FB5BC7221F3C2F2100909083 /* Flag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Flag.cpp; sourceTree = "<group>"; };
-		FB5BC7231F3C2F2100909083 /* Flag.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Flag.hpp; sourceTree = "<group>"; };
+		FB982E111F4ECAAA00354316 /* Flag.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Flag.cpp; sourceTree = "<group>"; };
+		FB982E121F4ECAAA00354316 /* Flag.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Flag.hpp; sourceTree = "<group>"; };
+		FB982E141F4ECAAA00354316 /* flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = flag.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +65,7 @@
 		FB5BC6F51F3C2E7300909083 = {
 			isa = PBXGroup;
 			children = (
+				FB982E0F1F4ECAAA00354316 /* src */,
 				FB5BC70F1F3C2ED400909083 /* flag-swift */,
 				FB5BC71C1F3C2F0E00909083 /* flag-cpp */,
 				FB5BC6FF1F3C2E7300909083 /* Products */,
@@ -83,7 +84,6 @@
 		FB5BC70F1F3C2ED400909083 /* flag-swift */ = {
 			isa = PBXGroup;
 			children = (
-				FB5BC7151F3C2EE000909083 /* flag.swift */,
 				FB5BC7101F3C2ED400909083 /* main.swift */,
 			);
 			path = "flag-swift";
@@ -92,11 +92,36 @@
 		FB5BC71C1F3C2F0E00909083 /* flag-cpp */ = {
 			isa = PBXGroup;
 			children = (
-				FB5BC7221F3C2F2100909083 /* Flag.cpp */,
-				FB5BC7231F3C2F2100909083 /* Flag.hpp */,
 				FB5BC71D1F3C2F0E00909083 /* main.cpp */,
 			);
 			path = "flag-cpp";
+			sourceTree = "<group>";
+		};
+		FB982E0F1F4ECAAA00354316 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				FB982E101F4ECAAA00354316 /* C++ */,
+				FB982E131F4ECAAA00354316 /* Swift */,
+			);
+			name = src;
+			path = ../src;
+			sourceTree = "<group>";
+		};
+		FB982E101F4ECAAA00354316 /* C++ */ = {
+			isa = PBXGroup;
+			children = (
+				FB982E111F4ECAAA00354316 /* Flag.cpp */,
+				FB982E121F4ECAAA00354316 /* Flag.hpp */,
+			);
+			path = "C++";
+			sourceTree = "<group>";
+		};
+		FB982E131F4ECAAA00354316 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				FB982E141F4ECAAA00354316 /* flag.swift */,
+			);
+			path = Swift;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,7 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB5BC7111F3C2ED400909083 /* main.swift in Sources */,
-				FB5BC7161F3C2EE000909083 /* flag.swift in Sources */,
+				FB982E161F4ECABA00354316 /* flag.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,8 +213,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB982E151F4ECAB500354316 /* Flag.cpp in Sources */,
 				FB5BC71E1F3C2F0E00909083 /* main.cpp in Sources */,
-				FB5BC7241F3C2F2100909083 /* Flag.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +362,7 @@
 				FB5BC7141F3C2ED400909083 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FB5BC71F1F3C2F0E00909083 /* Build configuration list for PBXNativeTarget "flag-cpp" */ = {
 			isa = XCConfigurationList;
@@ -345,6 +371,7 @@
 				FB5BC7211F3C2F0E00909083 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
