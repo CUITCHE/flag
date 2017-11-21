@@ -47,13 +47,13 @@ public struct Flag {
     }
 
     static func unquoteUsage(flag: Flag) -> (name: String, usage: String) {
-        let usage = flag.usage as NSString
+        let usage = flag.usage
         let first = usage.range(of: "`")
-        let second = usage.range(of: "`", options: .backwards, range: NSRange.init(location: 0, length: usage.length), locale: nil)
-        if first.location != second.location {
-            let name = usage.substring(with: NSRange.init(location: first.location + 1, length: second.location - first.location - 1))
-            let usageNew = usage.substring(to: first.location) + name + usage.substring(from: second.location + 1)
-            return (name: name, usage: usageNew)
+        let second = usage.range(of: "`", options: .backwards, range: usage.startIndex..<usage.endIndex, locale: nil)
+        if let first = first, let second = second, first.lowerBound != second.lowerBound {
+            let name = usage[usage.index(after: first.lowerBound)..<usage.index(usage.index(after: first.lowerBound), offsetBy: second.lowerBound.encodedOffset - first.lowerBound.encodedOffset)]
+            let usageNew = usage[..<first.lowerBound] + name + usage[usage.index(after: second.lowerBound)...]
+            return (name: String(name), usage: String(usageNew))
         }
         var name = "value"
         if flag.value is _Bool {
@@ -100,19 +100,19 @@ fileprivate class _Bool: Value {
 }
 
 fileprivate class _Integer: Value {
-    var val: UnsafeMutablePointer<sint64>
-    init(value: sint64) {
-        self.val = UnsafeMutablePointer<sint64>.allocate(capacity: MemoryLayout<sint64>.size)
+    var val: UnsafeMutablePointer<Int64>
+    init(value: Int64) {
+        self.val = UnsafeMutablePointer<Int64>.allocate(capacity: MemoryLayout<Int64>.size)
         self.val.initialize(to: value)
     }
 
     deinit {
         val.deinitialize()
-        val.deallocate(capacity: MemoryLayout<sint64>.size)
+        val.deallocate(capacity: MemoryLayout<Int64>.size)
     }
 
     func set(str: String) -> String? {
-        if let val = sint64(str) {
+        if let val = Int64(str) {
             self.val.pointee = val
         } else {
             return "invalid syntax"
@@ -153,25 +153,25 @@ fileprivate class _Float: Value {
 }
 
 fileprivate class _String: Value {
-    var val: UnsafeMutablePointer<NSString>
+    var val: UnsafeMutablePointer<String>
 
     init(value: String) {
-        self.val = UnsafeMutablePointer<NSString>.allocate(capacity: MemoryLayout<NSString>.size)
-        self.val.initialize(to: value as NSString)
+        self.val = UnsafeMutablePointer<String>.allocate(capacity: MemoryLayout<String>.size)
+        self.val.initialize(to: value)
     }
 
     deinit {
         val.deinitialize()
-        val.deallocate(capacity: MemoryLayout<NSString>.size)
+        val.deallocate(capacity: MemoryLayout<String>.size)
     }
 
     func set(str: String) -> String? {
-        self.val.pointee = str as NSString
+        self.val.pointee = str
         return nil
     }
 
     var string: String {
-        return self.val.pointee as String
+        return self.val.pointee
     }
 }
 
@@ -185,7 +185,7 @@ public struct FlagSet {
     init() {
         var argv = CommandLine.arguments
         let name = argv.removeFirst()
-        self.name = (name as NSString).lastPathComponent
+        self.name = name.components(separatedBy: "/").last ?? ""
         self.args = argv
     }
 }
@@ -218,10 +218,10 @@ fileprivate extension FlagSet {
         return UnsafePointer<__bool>(bool.val)
     }
 
-    mutating func Integer(value: sint64, name: String, usage: String) -> UnsafePointer<sint64> {
+    mutating func Integer(value: Int64, name: String, usage: String) -> UnsafePointer<Int64> {
         let integer = _Integer.init(value: value)
         self.bindVariable(value: integer, name: name, usage: usage)
-        return UnsafePointer<sint64>(integer.val)
+        return UnsafePointer<Int64>(integer.val)
     }
 
     mutating func Float(value: Double, name: String, usage: String) -> UnsafePointer<Double> {
@@ -230,10 +230,10 @@ fileprivate extension FlagSet {
         return UnsafePointer<Double>(float.val)
     }
 
-    mutating func string(value: String, name: String, usage: String) -> UnsafePointer<NSString> {
+    mutating func string(value: String, name: String, usage: String) -> UnsafePointer<String> {
         let string = _String.init(value: value)
         self.bindVariable(value: string, name: name, usage: usage)
-        return UnsafePointer<NSString>(string.val)
+        return UnsafePointer<String>(string.val)
     }
 
 
@@ -404,15 +404,13 @@ public extension FlagSet {
 
 fileprivate var FlagCommandLine = FlagSet.init()
 
-
-@objc
-public class flag: NSObject {
+public class flag {
 
     static func Bool(name: String, defValue: Bool, usage: String) -> UnsafePointer<__bool> {
         return FlagCommandLine.Bool(value: defValue, name: name, usage: usage)
     }
 
-    static func Integer(name: String, defValue: sint64, usage: String) -> UnsafePointer<sint64> {
+    static func Integer(name: String, defValue: Int64, usage: String) -> UnsafePointer<Int64> {
         return FlagCommandLine.Integer(value: defValue, name: name, usage: usage)
     }
 
@@ -420,7 +418,7 @@ public class flag: NSObject {
         return FlagCommandLine.Float(value: defValue, name: name, usage: usage)
     }
 
-    static func String(name: String, defValue: String, usage: String) -> UnsafePointer<NSString> {
+    static func String(name: String, defValue: String, usage: String) -> UnsafePointer<String> {
         let str = FlagCommandLine.string(value: defValue, name: name, usage: usage)
         return str
     }
