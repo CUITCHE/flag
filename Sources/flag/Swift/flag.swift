@@ -201,7 +201,7 @@ fileprivate extension FlagSet {
     mutating func bindVariable(value: Value, name: String, usage: String) {
         if formal.index(forKey: name) != nil {
             var msg: String
-            if self.name.characters.count == 0 {
+            if self.name.isEmpty {
                 msg = "flag redefined: \(name)"
             } else {
                 msg = "\(self.name) flag redefined: \(name)"
@@ -264,7 +264,7 @@ fileprivate extension FlagSet {
 
         var numMinuses = 1
         if s[s.index(after: s.startIndex)] == "-" {
-            if s.characters.count == 2 {
+            if s.count == 2 {
                 args.removeFirst()
                 return (false, nil)
             }
@@ -279,7 +279,7 @@ fileprivate extension FlagSet {
         args.removeFirst()
         var hasValue = false
         var value: Substring = ""
-        for (i, ch) in name.characters.dropFirst().enumerated() {
+        for (i, ch) in name.dropFirst().enumerated() {
             if ch == "=" {
                 hasValue = true
                 value = name[name.index(name.startIndex, offsetBy: i + 1 + 1)...]
@@ -331,7 +331,7 @@ public extension FlagSet {
     }
 
     public func defaultUsage() {
-        if name.characters.count == 0 {
+        if name.isEmpty {
             putln(text: "Usage:")
         } else {
             putln(text: "Usage of \(name):")
@@ -344,12 +344,12 @@ public extension FlagSet {
             let name = "  -\(flag.name)" // Two spaces before -; see next two comments.
             var s = ""
             let info = Flag.unquoteUsage(flag: flag)
-            if info.name.characters.count > 0 {
+            if info.name.isEmpty == false {
                 s += " " + info.name
             }
             // Boolean flags of one ASCII letter are so common we
             // treat them specially, putting their usage on the same line.
-            if s.characters.count + name.characters.count <= 4 {
+            if s.count + name.count <= 4 {
                 s += "\t"
             } else {
                 // Four spaces before the tab triggers good alignment

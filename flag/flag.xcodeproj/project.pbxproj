@@ -10,7 +10,7 @@
 		FB5BC7111F3C2ED400909083 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5BC7101F3C2ED400909083 /* main.swift */; };
 		FB5BC71E1F3C2F0E00909083 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB5BC71D1F3C2F0E00909083 /* main.cpp */; };
 		FB982E151F4ECAB500354316 /* Flag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB982E111F4ECAAA00354316 /* Flag.cpp */; };
-		FB982E161F4ECABA00354316 /* flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB982E141F4ECAAA00354316 /* flag.swift */; };
+		FB9D90A91FC3FBAC0094B1A9 /* flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9D90A81FC3FBAC0094B1A9 /* flag.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,7 +41,7 @@
 		FB5BC71D1F3C2F0E00909083 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		FB982E111F4ECAAA00354316 /* Flag.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Flag.cpp; sourceTree = "<group>"; };
 		FB982E121F4ECAAA00354316 /* Flag.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Flag.hpp; sourceTree = "<group>"; };
-		FB982E141F4ECAAA00354316 /* flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = flag.swift; sourceTree = "<group>"; };
+		FB9D90A81FC3FBAC0094B1A9 /* flag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = flag.swift; path = ../Sources/flag/Swift/flag.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,8 +100,8 @@
 		FB982E0F1F4ECAAA00354316 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				FB9D90A71FC3FBA20094B1A9 /* Swift */,
 				FB982E101F4ECAAA00354316 /* C++ */,
-				FB982E131F4ECAAA00354316 /* Swift */,
 			);
 			name = src;
 			path = ../src;
@@ -116,12 +116,12 @@
 			path = "C++";
 			sourceTree = "<group>";
 		};
-		FB982E131F4ECAAA00354316 /* Swift */ = {
+		FB9D90A71FC3FBA20094B1A9 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
-				FB982E141F4ECAAA00354316 /* flag.swift */,
+				FB9D90A81FC3FBAC0094B1A9 /* flag.swift */,
 			);
-			path = Swift;
+			name = Swift;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,7 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB5BC7111F3C2ED400909083 /* main.swift in Sources */,
-				FB982E161F4ECABA00354316 /* flag.swift in Sources */,
+				FB9D90A91FC3FBAC0094B1A9 /* flag.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
