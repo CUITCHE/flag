@@ -406,32 +406,32 @@ fileprivate var FlagCommandLine = FlagSet.init()
 
 public class flag {
 
-    static func Bool(name: String, defValue: Bool, usage: String) -> UnsafePointer<__bool> {
+    public static func Bool(name: String, defValue: Bool, usage: String) -> UnsafePointer<__bool> {
         return FlagCommandLine.Bool(value: defValue, name: name, usage: usage)
     }
 
-    static func Integer(name: String, defValue: Int64, usage: String) -> UnsafePointer<Int64> {
+    public static func Integer(name: String, defValue: Int64, usage: String) -> UnsafePointer<Int64> {
         return FlagCommandLine.Integer(value: defValue, name: name, usage: usage)
     }
 
-    static func Float(name: String, defValue: Double, usage: String) -> UnsafePointer<Double> {
+    public static func Float(name: String, defValue: Double, usage: String) -> UnsafePointer<Double> {
         return FlagCommandLine.Float(value: defValue, name: name, usage: usage)
     }
 
-    static func String(name: String, defValue: String, usage: String) -> UnsafePointer<String> {
+    public static func String(name: String, defValue: String, usage: String) -> UnsafePointer<String> {
         let str = FlagCommandLine.string(value: defValue, name: name, usage: usage)
         return str
     }
 
-    static func parse() {
+    public static func parse() {
         FlagCommandLine.parse()
     }
 
-    static func parsed() -> Bool {
+    public static func parsed() -> Bool {
         return FlagCommandLine.parsed
     }
 
-    static public var executedPath: String {
+    public static var executedPath: String {
         get {
             return CommandLine.arguments.first ?? ""
         }
