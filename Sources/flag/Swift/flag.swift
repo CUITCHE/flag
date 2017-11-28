@@ -112,6 +112,7 @@ fileprivate class _Integer: Value {
     }
 
     func set(str: String) -> String? {
+        let _ = Int.init("123")
         if let val = Int64(str) {
             self.val.pointee = val
         } else {
